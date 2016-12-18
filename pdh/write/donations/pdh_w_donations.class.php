@@ -51,6 +51,25 @@ if (!class_exists('pdh_w_donations')){
 			return false;
 		}
 		
+		//$intDonationID, $intUserId, $strUsername, $strCurrency, $strDescription, $intPublic, $strMethod, 'manual'
+		public function update($intID,$intUserID, $strUsername, $fltAmout, $strCurrency, $strDescription, $intPublic, $strMethod, $intDate=false){
+			$objQuery = $this->db->prepare("UPDATE __plugin_donations :p WHERE id=?")->set(array(
+					'user_id'		=> $intUserID,
+					'username'		=> $strUsername,
+					'date'			=> ($intDate) ? $intDate : $this->time->time,
+					'amount'		=> $fltAmout,
+					'currency'		=> $strCurrency,
+					'description'	=> $strDescription,
+					'public'		=> $intPublic,
+					'method'		=> $strMethod,
+			))->execute($intID);
+				
+			$this->pdh->enqueue_hook('donations_update');
+			if($objQuery) return $intID;
+				
+			return false;
+		}
+		
 		public function updatedStatus($intID, $strStatus='completed'){
 			$objQuery = $this->db->prepare("UPDATE __plugin_donations :p WHERE id=?")->set(array(
 					'status'	=> $strStatus,
@@ -59,6 +78,17 @@ if (!class_exists('pdh_w_donations')){
 			$this->pdh->enqueue_hook('donations_update');
 			if($objQuery) return $intID;
 				
+			return false;
+		}
+		
+		public function complete($intID, $intCompleted=1){
+			$objQuery = $this->db->prepare("UPDATE __plugin_donations :p WHERE id=?")->set(array(
+					'completed'	=> $intCompleted,
+			))->execute($intID);
+		
+			$this->pdh->enqueue_hook('donations_update');
+			if($objQuery) return $intID;
+		
 			return false;
 		}
 		
@@ -73,26 +103,14 @@ if (!class_exists('pdh_w_donations')){
 			if ($this->pm->check('statistics', PLUGIN_INSTALLED)){
 				$this->pdh->put('statistics_plugin', 'insert', array('donations', intval($fltAmount)));
 			}
+			
+			//Notify Admin
+			$strLink = $this->routing->build('donate', false, false, true, true);
+			$this->ntfy->add('donations_new_donation', $intID, strip_tags($this->pdh->geth('donations', 'username', array($intID))), $strLink, false, number_format($fltAmount, 2).' '.$this->pdh->geth('donations', 'currency', array($intID)), false, 'a_donations_manage');
 		
 			$this->pdh->enqueue_hook('donations_update');
 			if($objQuery) return $intID;
 		
-			return false;
-		}
-
-
-		public function update($intID, $intSortID, $intActive = 0, $strName, $strListener, $strValue = ''){
-			$objQuery = $this->db->prepare("UPDATE __dynamictemplate :p WHERE id=?")->set(array(
-				'sortid' 	=> $intSortID,
-				'active'	=> $intActive,
-				'name'		=> $strName,
-				'listener'	=> $strListener,
-				'value'		=> $strValue,
-			))->execute($intID);
-			
-			$this->pdh->enqueue_hook('donations_update');
-			if($objQuery) return $intID;
-			
 			return false;
 		}
 
@@ -100,6 +118,7 @@ if (!class_exists('pdh_w_donations')){
 		public function delete($intID){
 			$this->db->prepare("DELETE FROM __plugin_donations WHERE id=?")->execute($intID);
 			$this->pdh->enqueue_hook('donations_update');
+			$this->ntfy->deleteNotification('donations_new_donation', $intID);
 			return true;
 		}
 

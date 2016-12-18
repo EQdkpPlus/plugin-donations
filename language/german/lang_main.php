@@ -57,11 +57,42 @@ $lang = array(
 'donations_f_thankyou'			=> 'Dankesnachricht nach erfolgter Spende',
 'donations_f_cancel'			=> 'Nachricht wenn Spende abgebrochen wurde',
 'donations_f_goal_start'		=> 'Start der Spendenkampagne',
-'donations_f_help_goal_start'	=> 'Wird für die Berechnung der noch abgedeckten Monate benötigt',
-'donations_menu'				=> 'Spenden',
+'donations_f_help_goal_start'		=> 'Wird für die Berechnung der noch abgedeckten Monate benötigt',
+'donations_menu'			=> 'Spenden',
+'donation_success_message'		=> 'Vielen Dank für deine Spende! Sobald diese bestätigt wurde, wird sie auf dieser Seite sichtbar sein.',
+'donation_cancel_message'		=> 'Schade, dass du deine Spende abgebrochen hast.',
+'donations_donate_button'		=> 'Jetzt spenden',
 		
+"plugin_statistics_donations"		=> "Spenden",
+"donations_covered_months_text" 	=> "%d abgedeckte Monate",
+"donations_month" 			=> "Monat",
+"donations_months" 			=> "Monate",
+"donations_amount" 			=> "Betrag",
+"donations_via_paypal" 			=> "Spenden über PayPal",
+"donations_recent_goal"			=> "Aktueller Spendenstand",
+"donations_public"			=> "Öffentliche Spende",
+"donations_wallofdonators"		=> "Bisherige Spenden",
+"donations_hide_name"			=> "Name verbergen",
 		
-"plugin_statistics_donations" => "Spenden",
+'donations_manage'				=> 'Spenden verwalten',
+'donations_add'					=> 'Spende/Auszahlung hinzufügen',
+'donations_confirm_delete_donation' => 'Bist du sicher, dass die Spenden %s gelöscht werden sollen?',
+'donation_incomplete_suc'		=> 'Die Spende wurde erfolgreich deaktiviert.',
+'donation_complete_suc'			=> 'Die Spende wurde erfolgreich aktiviert.',
+'donation_complete_selected'	=> 'Ausgewählte aktivieren',
+'donation_provider'				=> 'Zahlungsmethode',
+'donations_method_manual'		=> 'Manuell',
+		
+'donations_ntfy_new_donation'	=> "{PRIMARY} hat eine neue Spende i.H.v. \"{ADDITIONAL}\" getätigt",
+'donations_ntfy_new_donation_grouped' => "Es wurden {COUNT} neue Spenden getätigt",
+'user_sett_f_ntfy_donations_new_donation' => 'Spenden: neue Spende',
+		
+//Portal
+'donations_donations'		=> 'Spenden',
+'donations_f_show_button'	=> 'Spenden-Button anzeigen',
+'donations_f_show_progress' => 'Spenden-Fortschritt anzeigen',
+'donations_f_text'			=> 'Spenden-Text',
+'donations_months_short'	=> 'Mo.',
 );
 
 ?>

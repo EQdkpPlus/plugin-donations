@@ -1,0 +1,48 @@
+<div class="breadcrumb-container">
+	<ul class="breamcrumb">
+		<li><a href="{EQDKP_CONTROLLER_PATH}{SID}" title="{L_home}"><i class="fa fa-home"></i></a></li>
+		<li><a href="{EQDKP_ROOT_PATH}admin/{SID}">{L_menu_admin_panel}</a>
+		<li><a href="{EQDKP_ROOT_PATH}plugins/donations/admin/donations.php{SID}">{L_donations}: {L_donations_manage}</a></li>
+		<li class="current"><a>{DONATIONNAME}</a></li>
+	</ul>
+	<div class="clear"></div>
+</div>
+
+<form action="{ACTION}&amp;donation={DONATION_ID}" method="post">
+		
+	<fieldset class="settings">
+	<legend>{L_donations_manage}: {DONATIONNAME}</legend>
+		<dl>
+			<dt><label>{L_user}:</label></dt>
+			<dd>{DD_USER}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_username}:</label></dt>
+			<dd><input name="username" type="text" class="input" value="{D_USERNAME}" /></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_date}:</label></dt>
+			<dd>{D_DATEPICKER}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_donations_amount}:</label></dt>
+			<dd><input name="amount" type="text" class="input" value="{D_AMOUNT}" required> {D_CURRENCY}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_comment}:</label></dt>
+			<dd><input name="description" type="text" class="input" value="{D_DESCRIPTION}" style="width:95%"></dd>
+		</dl>
+		<dl>
+			<dt><label>{L_donation_provider}:</label></dt>
+			<dd>{DD_METHOD}</dd>
+		</dl>
+		<dl>
+			<dt><label>{L_donations_public}:</label></dt>
+			<dd>{DD_PUBLIC}</dd>
+		</dl>
+	</fieldset>
+
+	<button name="upd" type="submit" class="mainoption" id="update" ><i class="fa fa-check"></i>{L_save}</button>
+	<button name="cancel" type="button" class="liteoption" id="cancel" onclick="window.location='donations.php{SID}'"><i class="fa fa-chevron-left"></i>{L_cancel}</button>
+{CSRF_TOKEN}
+</form>

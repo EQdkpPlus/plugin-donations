@@ -23,7 +23,83 @@ document.getElementById('paypal_redirect').submit();
 
 
 <!-- ELSE -->
+<style>
+.donationtable {
+    text-align: center;
+}
 
+.donationBar {
+  background-color: #333333;
+  border-radius: 5px;
+  height: 20px;
+  padding: 3px;
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, .5), 0 1px 0 rgba(255, 255, 255, .5);
+  margin: 0px;
+  margin-bottom: 10px;
+}
+
+/* tiefrot */
+.months_0 > span {
+    background-color: #ff0000;
+      background-image: -webkit-linear-gradient(#ff0000,#cc0000);
+      background-image: linear-gradient(#ff0000,#cc0000);
+    width: 2% !important;
+}
+
+/* helleres rot */
+.months_1 > span {
+    background-color: #ff3600;
+      background-image: -webkit-linear-gradient(#ff3600,#cc2b00);
+      background-image: linear-gradient(#ff3600,#cc2b00);
+    width: 16% !important;
+}
+
+.months_2 > span {
+    background-color: #ff6c00;
+      background-image: -webkit-linear-gradient(#ff6c00,#cc5600);
+      background-image: linear-gradient(#ff6c00,#cc5600);
+    width: 32% !important;
+}
+
+.months_3 > span {
+    background-color: #ffba00;
+      background-image: -webkit-linear-gradient(#ffba00,#e6a700);
+      background-image: linear-gradient(#ffba00,#e6a700);
+    width: 48% !important;
+}
+
+.months_4 > span {
+    background-color: #fff600;
+      background-image: -webkit-linear-gradient(#fff600,#e6dd00);
+      background-image: linear-gradient(#fff600,#e6dd00);
+    width: 64% !important;
+}
+
+.months_5 > span {
+    background-color: #baff00;
+      background-image: -webkit-linear-gradient(#baff00,#a7e600);
+      background-image: linear-gradient(#baff00,#a7e600);
+    width: 80% !important;
+}
+
+/* hellgruen */
+.months_6 > span {
+  background-color: #a5df41;
+  background-image: -webkit-linear-gradient(#a5df41,#4ca916);
+  background-image: linear-gradient(#a5df41,#4ca916);
+  width: 100% !important;
+}
+
+.donationBar > span {
+  border-radius: 3px;
+  color: transparent;
+  display: block;
+  height: 100%;
+  max-width: 100%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5);
+width: 1%;
+}
+</style>
 <div class="breadcrumb-container">
 	<ul class="breadcrumb">
 		<li><a href="{EQDKP_CONTROLLER_PATH}{SID}" title="{L_home}"><i class="fa fa-home"></i></a></li>
@@ -35,59 +111,123 @@ document.getElementById('paypal_redirect').submit();
 	<h1 class="contentTitle">{L_donations_menu}</h1>
 </div>
 
+<!-- IF S_DONATE_SUCCESS -->
+<div class="infobox infobox-large infobox-green clearfix">
+	<i class="fa fa-heart fa-4x pull-left" style="color:red;"></i> {L_donation_success_message}<br />{DONATION_SUCCESS_TEXT}
+</div>
+<!-- ENDIF -->
+<!-- IF S_DONATE_CANCEL -->
+<div class="infobox infobox-large infobox-blue clearfix">
+	<i class="fa fa-info-circle fa-4x pull-left"></i> {L_donation_cancel_message}<br /><br />{DONATION_CANCEL_TEXT}
+</div>
+<!-- ENDIF -->
+
+
 <div class="donation_text">{DONATION_TEXT}
 </div>
 
-<h3>Spendenstatus</h3>
-Der aktuelle Spendenstatus
+<!-- IF S_FIXED_SUM -->
+<br />
+{FIXED_SUM_PROGRESSBAR}
+<!-- ENDIF -->
 
+<!-- IF S_MONTHLY_SUM_PROGRESS -->
+<br />
+<h3>{DONATION_MONTH}:</h3>
+{FIXED_SUM_PROGRESSBAR}
+<!-- ENDIF -->
+
+<!-- IF S_MONTHLY_SUM_COVERED -->
+<br />
+<table width="95%" class="donationtable">
+	<tbody><tr>
+		<td>1 {L_donations_month}</td>
+		<td>2 {L_donations_months}</td>
+		<td>3 {L_donations_months}</td>
+		<td>4 {L_donations_months}</td>
+		<td>5 {L_donations_months}</td>
+		<td>6 {L_donations_months}</td>
+	</tr>
+</tbody></table>
+
+<p class="donationBar months_{COVERED_MONTHS_CLASS}">
+	<span></span>
+</p>
+<center> {COVERED_MONTHS_TEXT} </center>
+<br />
+<!-- ENDIF -->
+
+<!-- IF S_SUM_ONLY -->
+<br />
+<div style="font-size:2em;">{L_donations_recent_goal}: <div style="font-size:1em;" class="bubble">{DONATION_SUM} {DONATION_CURRENCY}</div></div>
+<!-- ENDIF -->
+
+<!-- IF not S_DONATE_SUCCESS -->
+<!-- IF S_CAN_DONATE -->
+<br />
 <form method="post" action="">
 		<fieldset class="settings">
-			<legend>Spenden über PayPal</legend>
+			<legend>{L_donations_via_paypal}</legend>
 				<!-- IF not S_LOGGED_IN -->
 				<dl>
-					<dt><label>Benutzername</label></dt>
-					<dd><input type="text" name="username"></dd>
+					<dt><label>Name *</label></dt>
+					<dd><input type="text" name="username" required></dd>
 				</dl>
 				<!-- ENDIF -->
 				<dl>
-					<dt><label>Kommentar</label></dt>
-					<dd><input type="text" name="description"></dd>
-				</dl>
-				<dl>
-					<dt><label>Betrag</label></dt>
+					<dt><label>{L_donations_amount} *</label></dt>
 					<dd>
 					<!-- IF S_DONATION_FREE -->
-					<input type="number" name="value" placeholder="{DONATION_PLACEHOLDER}" required min="{DONATION_PLACEHOLDER}" step="any">
+					<input type="number" name="value" placeholder="{DONATION_PLACEHOLDER}" required min="{DONATION_PLACEHOLDER}" step="any" size="10">
 					<!-- ELSE -->
 					{DD_DONATION_AMOUNTS}
 					<!-- ENDIF -->
 					{DONATION_CURRENCY}</dd>
 				</dl>
 				<dl>
-					<dt><label>Öffentliche Spende</label>
+					<dt><label>{L_donations_public} *</label>
 					</dt>
 					<dd>{DONATE_DD_PUBLIC}</dd>
+				</dl>
 				<dl>
+					<dt><label>{L_comment}</label></dt>
+					<dd><input type="text" name="description" size="30"></dd>
+				</dl>
+				<!-- IF S_DISPLAY_CATPCHA -->
+				<dl>
+					<dt>
+						<label>{L_lib_captcha_head} *</label>
+					</dt>
+					<dd>{FV_CAPTCHA}
+					{CAPTCHA}</dd>
+				</dl>
+				<!-- ENDIF -->
 			</fieldset>
-		<!-- IF S_DONATE_CAPTCHA -->
-		<fieldset class="settings">
-			<legend>{L_lib_captcha_head}</legend>
-			<dl>
-				<dt>
-					<label>{L_lib_captcha_head} *</label>
-				</dt>
-				<dd>{FV_CAPTCHA}
-				{CAPTCHA}</dd>
-			</dl>
-		</fieldset>
-		<!-- ENDIF -->
-	<button type="submit" name="donate"><i class="fa fa-paypal"></i>{L_donations_menu}</button>
+
+	<button type="submit" name="donate"><i class="fa fa-paypal"></i>{L_donations_donate_button}</button>
 	
 {CSRF_TOKEN}
 </form>
+<!-- ENDIF -->
+<!-- ENDIF -->
 <br />
-<h2>Bisherige Spenden</h2>
-Hier kommt die Donationwall hin
+<h2>{L_donations_wallofdonators}</h2>
+
+<table class="table fullwidth colorswitch hoverrows">
+		<tr>
+			<th>{L_date}</th>
+			<th>{L_name}</th>
+			<th>{L_comment}</th>
+			<th>{L_donations_amount}</th>
+		</tr>
+		<!-- BEGIN wallofdonators_row -->
+		<tr>
+			<td width="60">{wallofdonators_row.DATE}</td>
+			<td>{wallofdonators_row.USERNAME}</td>
+			<td>{wallofdonators_row.COMMENT}</td>
+			<td width="100">{wallofdonators_row.VALUE} {wallofdonators_row.CURRENCY}</td>
+		</tr>
+		<!-- END wallofdonators_row -->
+</table>
 
 <!-- ENDIF -->

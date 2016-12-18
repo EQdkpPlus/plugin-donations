@@ -22,7 +22,7 @@
 // EQdkp required files/vars
 define('EQDKP_INC', true);
 define('IN_ADMIN', true);
-define('PLUGIN', 'chat');
+define('PLUGIN', 'donations');
 
 $eqdkp_root_path = './../../../';
 include_once($eqdkp_root_path.'common.php');
@@ -37,9 +37,9 @@ class donationsAdminSettings extends page_generic {
 			message_die($this->user->lang('donations_plugin_not_installed'));
 
 			$handler = array(
-					'save' => array('process' => 'save', 'csrf' => true, 'check' => 'a_donations_manage'),
+					'save' => array('process' => 'save', 'csrf' => true, 'check' => 'a_donations_settings'),
 			);
-			parent::__construct('a_donations_manage', $handler);
+			parent::__construct('a_donations_settings', $handler);
 
 			$this->process();
 	}

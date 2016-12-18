@@ -36,7 +36,7 @@ $donationsSQL = array(
 	`token` VARCHAR(50) NOT NULL DEFAULT '0',
 	`user_id` INT(11) NOT NULL DEFAULT '-1',
 	`username` VARCHAR(255) NULL DEFAULT NULL,
-	`amount` FLOAT(10,3) NOT NULL DEFAULT '0.000',
+	`amount` FLOAT(10,2) NOT NULL DEFAULT '0.00',
 	`currency` VARCHAR(3) NULL DEFAULT NULL,
 	`status` VARCHAR(50) NULL DEFAULT 'start',
 	`completed` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',

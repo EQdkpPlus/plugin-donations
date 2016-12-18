@@ -51,8 +51,9 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 		'donations_description' => array('description', array('%donationID%'), array()),
 		'donations_public' => array('public', array('%donationID%'), array()),
 		'donations_method' => array('method', array('%donationID%'), array()),
+		'donations_actions' => array('actions', array('%donationID%'), array()),
 	);
-				
+					
 	public function reset(){
 			$this->pdc->del('pdh_donations_table');
 			
@@ -66,7 +67,7 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 				return true;
 			}		
 
-			$objQuery = $this->db->query('SELECT * FROM __plugin_donations');
+			$objQuery = $this->db->query('SELECT * FROM __plugin_donations ORDER BY date DESC');
 			if($objQuery){
 				while($drow = $objQuery->fetchAssoc()){
 					$this->donations[(int)$drow['id']] = array(
@@ -79,7 +80,7 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 						'currency'			=> $drow['currency'],
 						'status'			=> $drow['status'],
 						'completed'			=> (int)$drow['completed'],
-						'description'		=> $drow['description'],
+						'description'			=> $drow['description'],
 						'public'			=> (int)$drow['public'],
 						'method'			=> $drow['method'],
 
@@ -109,6 +110,45 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 			}
 			return false;
 		}
+
+		public function get_completed_id_list(){
+			if ($this->donations === null) return array();
+			$arrOut = array();
+
+			foreach($this->donations as $key => $val){
+				if($val['completed']) $arrOut[] = $key;
+			}
+
+			return $arrOut;
+		}
+
+		public function get_incompleted_id_list(){
+			if ($this->donations === null) return array();
+			
+			$arrOut = array();
+
+			foreach($this->donations as $key => $val){
+				if(!$val['completed']) $arrOut[] = $key;
+			}
+
+			return $arrOut;
+		}
+		
+		public function get_html_actions($intDonationID){
+			$out = '';
+			if($this->get_completed($intDonationID)){
+				$out .= '<a href="donations.php'.$this->SID.'&amp;complete='.$intDonationID.'&amp;link_hash='.$this->user->csrfGetToken('donationsAdminDonationscomplete').'"><i class="fa fa-check-square-o icon-color-green"></i></a>';
+			} else {
+				$out .= '<a href="donations.php'.$this->SID.'&amp;complete='.$intDonationID.'&amp;link_hash='.$this->user->csrfGetToken('donationsAdminDonationscomplete').'"><i class="fa fa-square-o icon-color-red"></i></a>';
+			}
+			$out .= '&nbsp;&nbsp;&nbsp;<a href="donations.php'.$this->SID.'&amp;edit='.$intDonationID.'"><i class="fa fa-pencil fa-lg" title="'.$this->user->lang('edit').'"></i></a>';
+		
+			return $out;
+		}
+		
+		public function get_deleteinfo($donationID){
+			return $this->get_html_date($donationID).', '.$this->get_html_amount($donationID);
+		}
 				
 		/**
 		 * Returns id for $donationID				
@@ -132,6 +172,10 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 				return $this->donations[$donationID]['date'];
 			}
 			return false;
+		}
+		
+		public function get_html_date($donationID){
+			return $this->time->user_date($this->get_date($donationID));
 		}
 
 		/**
@@ -169,6 +213,17 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 			}
 			return false;
 		}
+		
+		public function get_html_username($donationID){
+			if($this->get_user_id($donationID) > 0){
+				$username = $this->pdh->get('user', 'name', array($this->get_user_id($donationID)));
+				$strUsername = '<a href="'.register('routing')->build('user', $username, 'u'.$this->get_user_id($donationID)).'" data-user-id="'.$this->get_user_id($donationID).'">'.$username.'</a>';
+			} else {
+				$strUsername = '<i style="font-style:italic;">'.sanitize($this->get_username($donationID)).'</i>';
+			}
+			
+			return $strUsername;
+		}
 
 		/**
 		 * Returns amount for $donationID				
@@ -180,6 +235,13 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 				return $this->donations[$donationID]['amount'];
 			}
 			return false;
+		}
+		
+		public function get_html_amount($donationID){
+			$fltAmount = number_format(round($this->get_amount($donationID),2),2);
+			$class = ($fltAmount < 0) ? 'negative' : 'positive';
+			
+			return '<span class="'.$class.'">'.$fltAmount.'</span> '.$this->get_currency($donationID);
 		}
 
 		/**
@@ -229,6 +291,10 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 			}
 			return false;
 		}
+		
+		public function get_html_description($donationID){
+			return cut_text($this->get_description($donationID));
+		}
 
 		/**
 		 * Returns public for $donationID				
@@ -252,6 +318,13 @@ if ( !class_exists( "pdh_r_donations" ) ) {
 				return $this->donations[$donationID]['method'];
 			}
 			return false;
+		}
+		
+		public function get_html_method($donationID){
+			$strMethod = $this->get_method($donationID);
+			if($strMethod == 'manual') return $this->user->lang('donations_method_manual');
+			if($strMethod == 'paypal') return "PayPal";
+			return ucfirst($strMethod);
 		}
 
 	}//end class

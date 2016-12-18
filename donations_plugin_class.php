@@ -92,6 +92,8 @@ class donations extends plugin_generic
     // -- PDH Modules -------------------------------------
     $this->add_pdh_read_module('donations');
     $this->add_pdh_write_module('donations');
+    
+    $this->add_portal_module('donations');
 }
 
   /**
@@ -116,6 +118,8 @@ class donations extends plugin_generic
    * Add Default Settings
    */
   public function post_install(){
+  	$this->ntfy->addNotificationType('donations_new_donation', 'donations_ntfy_new_donation', 'donations', 0, 1, true, 'donations_ntfy_new_donation_grouped', 3, 'fa-dollar');
+
   }
 
   /**
@@ -124,6 +128,10 @@ class donations extends plugin_generic
    */
   public function pre_uninstall()
   {
+  	$this->ntfy->deleteNotificationType('donations_new_donation');
+  	
+  	$this->pdh->put('donations', 'truncate', array());
+  	
   	// include SQL data for uninstallation
   	include($this->root_path.'plugins/donations/sql/sql.php');
   

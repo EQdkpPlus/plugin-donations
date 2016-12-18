@@ -95,8 +95,10 @@ class PayPalCallback extends page_generic {
 				$amount = (isset($_POST['mc_fee'])) ? ((float)$arrPayment['amount'] - (float)$_POST['mc_fee']) : (float)$arrPayment['amount'];
 
 				$this->pdh->put('donations', 'finishPayment', array($intPaymentID, 'verified', $amount));
+				$this->pdh->process_hook_queue();
 			} else {
 				$this->pdh->put('donations', 'updatedStatus', array($intPaymentID, $status));
+				$this->pdh->process_hook_queue();
 			}
 				
 		} else {
