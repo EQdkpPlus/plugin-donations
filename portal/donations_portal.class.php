@@ -79,9 +79,12 @@ class donations_portal extends portal_generic{
 	*/
 	public function output(){
 		$strText = $this->config('text');
-		$output .= $this->bbcode->toHTML($strText);
+		$output = "";
+		if($strText && strlen($strText)){
+			$output .= $this->bbcode->toHTML($strText);	
+		}
 		
-		if($this->config('show_progress')){
+		if($this->config('show_progress') || $this->config('show_progress') === false){
 			$strGoalType = $this->config->get('goal_type', 'donations');
 			if ($strGoalType == 'no'){
 				//Sum up and display value only
@@ -248,7 +251,7 @@ $output .= '<br /><table width="95%" class="portal donationtable">
 						$fltTotalSum += $myval;
 					}
 			
-					$percent = ($fltTotalSum == 0) ? 0 : (($fltTotalSum / $fltGoalValue)*100);
+					$percent = ($fltTotalSum <= 0) ? 0 : (($fltTotalSum / $fltGoalValue)*100);
 					$percent = $displayPercent = round($percent,0);
 					if($percent > 100) $percent = 100;
 			
@@ -275,7 +278,7 @@ $output .= '<br /><table width="95%" class="portal donationtable">
 					$fltTotalSum += $myval;
 				}
 				
-				$percent = ($fltTotalSum == 0) ? 0 : (($fltTotalSum / $fltGoalValue)*100);
+				$percent = ($fltTotalSum <= 0) ? 0 : (($fltTotalSum / $fltGoalValue)*100);
 				$percent = $displayPercent = round($percent,0);
 				if($percent > 100) $percent = 100;
 				
@@ -285,7 +288,7 @@ $output .= '<br /><table width="95%" class="portal donationtable">
 			}
 		}
 		
-		if($this->config('show_button') && $this->user->check_auth('u_donations_donate', false)){
+		if(($this->config('show_button') || $this->config('show_button') === false) && $this->user->check_auth('u_donations_donate', false)){
 			$output .= '<br /><br /><div class="center"><a href="'.$this->routing->build('donate').'" class="button">'.$this->user->lang('donations_donate_button').'</a></div><br />';
 		}
 		

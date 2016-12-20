@@ -46,7 +46,16 @@ if (!class_exists('pdh_w_donations')){
 			))->execute();
 			
 			$this->pdh->enqueue_hook('donations_update');
-			if($objQuery) return $objQuery->insertId;
+			if($objQuery) {
+				if($intCompleted){
+					//Insert Data into Statistics Plugin
+					if ($this->pm->check('statistics', PLUGIN_INSTALLED)){
+						$this->pdh->put('statistics_plugin', 'insert', array('donations', intval($fltAmout)));
+					}
+				}
+				
+				return $objQuery->insertId;
+			}
 			
 			return false;
 		}

@@ -60,9 +60,8 @@ class donationsAdminDonations extends page_generic {
 			foreach($don_ids as $intDonationID){
 				$isCompleted = $this->pdh->get('donations', 'completed', array($intDonationID));
 				if($isCompleted){
-					$result = $this->pdh->put('donations', 'complete', array($intDonationID, 0));
-					$message = array('title' => $this->user->lang('donations'), 'text' => $this->user->lang('donation_incomplete_suc'), 'color' => 'green');
-				
+					//$result = $this->pdh->put('donations', 'complete', array($intDonationID, 0));
+					//$message = array('title' => $this->user->lang('donations'), 'text' => $this->user->lang('donation_incomplete_suc'), 'color' => 'green');
 				} else {
 					$result = $this->pdh->put('donations', 'complete', array($intDonationID, 1));
 					$message = array('title' => $this->user->lang('donations'), 'text' => $this->user->lang('donation_complete_suc'), 'color' => 'green');
@@ -107,6 +106,9 @@ class donationsAdminDonations extends page_generic {
 		
 		$strUsername = $this->in->get('username');
 		$intUserId = $this->in->get('user_id');
+		if($strUsername != ""){
+			$intUserId = ANONYMOUS;
+		}
 		$intDate = $this->time->fromformat($this->in->get('date'));
 		$fltAmount = $this->in->get('amount', 0.0);
 		$strMethod = $this->in->get('method');
