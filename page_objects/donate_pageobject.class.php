@@ -290,7 +290,7 @@ class donate_pageobject extends pageobject
 
 		$this->tpl->assign_block_vars('wallofdonators_row', array(
 			'VALUE' 	=> '<span class="'.$class.'">'.$fltAmount.'</span>',
-			'CURRENCY'	=> $arrData['currency'],
+			'CURRENCY'	=> sanitize($arrData['currency']),
 			'DATE'		=> $this->time->user_date($arrData['date']),
 			'COMMENT'	=> sanitize($arrData['description']),
 			'USERNAME'	=> ($arrData['public']) ? $strUsername : '<i style="font-style:italic;">Anonymous</i>',

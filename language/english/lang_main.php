@@ -93,6 +93,10 @@ $lang = array(
     'donations_f_show_progress' => 'Show donation progress',
     'donations_f_text'			=> 'Donation text',
     'donations_months_short'	=> 'Mo.',
+		
+	'donations_f_show_count'	=> 'Count of latest donations',
+	'donations_f_text_latest'	=> 'Descriptiontext (optional)',
+	'latestdonations' 			=> 'Latest donations',
 );
 
 ?>

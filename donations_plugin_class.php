@@ -94,6 +94,7 @@ class donations extends plugin_generic
     $this->add_pdh_write_module('donations');
     
     $this->add_portal_module('donations');
+    $this->add_portal_module('latestdonations');
 }
 
   /**
