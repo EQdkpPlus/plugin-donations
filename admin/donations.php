@@ -148,20 +148,20 @@ class donationsAdminDonations extends page_generic {
 				'D_USERNAME'			=> $arrData['username'],
 				'D_AMOUNT'				=> number_format($arrData['amount'], 2),
 				'D_DESCRIPTION'			=> $arrData['description'],
-				'DD_METHOD'				=> new hdropdown('method', array('options' => array('paypal' => 'PayPal', 'manual' => $this->user->lang('donations_method_manual')), 'value' => $arrData['method'])),
-				'DD_PUBLIC'				=> new hdropdown('public', array('options' => array(1 => $this->user->lang('donations_public'), 0 => $this->user->lang('donations_hide_name')), 'value' => $arrData['public'])),
-				'D_DATEPICKER'			=> new hdatepicker('date', array('value' => $arrData['date'])),
-				'DD_USER' 				=> new hsingleselect('user_id', array('options' => $arrUsers, 'filter' => true, 'value' => $arrData['user_id'])),
+				'DD_METHOD'				=> (new hdropdown('method', array('options' => array('paypal' => 'PayPal', 'manual' => $this->user->lang('donations_method_manual')), 'value' => $arrData['method'])))->output(),
+				'DD_PUBLIC'				=> (new hdropdown('public', array('options' => array(1 => $this->user->lang('donations_public'), 0 => $this->user->lang('donations_hide_name')), 'value' => $arrData['public'])))->output(),
+				'D_DATEPICKER'			=> (new hdatepicker('date', array('value' => $arrData['date'])))->output(),
+				'DD_USER' 				=> (new hsingleselect('user_id', array('options' => $arrUsers, 'filter' => true, 'value' => $arrData['user_id'])))->output(),
 			));
 		} else {
 			$this->tpl->assign_vars(array(
 				'D_USERNAME'			=> "",
 				'D_AMOUNT'				=> number_format(0, 2),
 				'D_DESCRIPTION'			=> "",
-				'DD_METHOD'				=> new hdropdown('method', array('options' => array('paypal' => 'PayPal', 'manual' => $this->user->lang('donations_method_manual')), 'value' => 'manual')),
-				'DD_PUBLIC'				=> new hdropdown('public', array('options' => array(1 => $this->user->lang('donations_public'), 0 => $this->user->lang('donations_hide_name')), 'value' => 1)),
-				'D_DATEPICKER'			=> new hdatepicker('date', array('value' => $this->time->time)),
-				'DD_USER' 				=> new hsingleselect('user_id', array('options' => $arrUsers, 'filter' => true, 'value' => $this->user->id)),
+				'DD_METHOD'				=> (new hdropdown('method', array('options' => array('paypal' => 'PayPal', 'manual' => $this->user->lang('donations_method_manual')), 'value' => 'manual')))->output(),
+				'DD_PUBLIC'				=> (new hdropdown('public', array('options' => array(1 => $this->user->lang('donations_public'), 0 => $this->user->lang('donations_hide_name')), 'value' => 1)))->output(),
+				'D_DATEPICKER'			=> (new hdatepicker('date', array('value' => $this->time->time)))->output(),
+				'DD_USER' 				=> (new hsingleselect('user_id', array('options' => $arrUsers, 'filter' => true, 'value' => $this->user->id)))->output(),
 			));
 		}
 		
