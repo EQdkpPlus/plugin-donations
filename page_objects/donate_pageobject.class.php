@@ -300,7 +300,7 @@ class donate_pageobject extends pageobject
 
 	//Template Vars
 	$this->tpl->assign_vars(array(
-		'DONATE_DD_PUBLIC' 		=> (new hdropdown('public', array('options' => array(1 => $this->user->lang('donations_public'), 0 => $this->user->lang('donations_hide_name')), 'value' => 1)),
+		'DONATE_DD_PUBLIC' 		=> (new hdropdown('public', array('options' => array(1 => $this->user->lang('donations_public'), 0 => $this->user->lang('donations_hide_name')), 'value' => 1)))->output(),
 		'DONATION_PLACEHOLDER' 		=> $this->config->get('min_value', 'donations'),
 		'DONATION_TEXT'			=> $this->bbcode->toHTML($this->config->get('donation', 'donations')))->output(),
 		'DONATION_CURRENCY' 		=> $this->config->get('paypal_currency', 'donations'),
