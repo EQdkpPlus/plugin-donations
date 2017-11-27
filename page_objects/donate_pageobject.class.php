@@ -110,6 +110,9 @@ class donate_pageobject extends pageobject
   			'page_title'    => $this->user->lang('donations_menu'),
   			'template_path' => $this->pm->get_data('donations', 'template_path'),
   			'template_file' => 'donate.html',
+  			'page_path'			=> [
+  					['title'=> $this->user->lang('donations_menu'), 'url'=>' '],
+  			],
   			'display'       => true
   	));
   }
@@ -324,6 +327,9 @@ class donate_pageobject extends pageobject
       'page_title'    => $this->user->lang('donations_menu'),
       'template_path' => $this->pm->get_data('donations', 'template_path'),
       'template_file' => 'donate.html',
+		'page_path'			=> [
+				['title'=> $this->user->lang('donations_menu'), 'url'=>' '],
+		],
       'display'       => true
     ));
   }

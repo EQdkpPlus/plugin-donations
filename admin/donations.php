@@ -177,6 +177,11 @@ class donationsAdminDonations extends page_generic {
 				'page_title'		=> (($intDonationID) ? $strDonationname : $this->user->lang('donations_add')).' - '.$this->user->lang('donations_manage'),
 				'template_path'		=> $this->pm->get_data('donations', 'template_path'),
 				'template_file'		=> 'admin/manage_donations_edit.html',
+				'page_path'			=> [
+						['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+						['title'=>$this->user->lang('donations').': '.$this->user->lang('donations_manage'), 'url'=>$this->root_path.'plugins/donations/admin/donations.php'.$this->SID],
+						['title'=>(($intDonationID) ? $strDonationname : $this->user->lang('donations_add')), 'url'=>' '],
+				],
 				'display'			=> true
 		));
 	}
@@ -238,6 +243,10 @@ class donationsAdminDonations extends page_generic {
 			'page_title'		=> $this->user->lang('donations_manage'),
 			'template_path'		=> $this->pm->get_data('donations', 'template_path'),
 			'template_file'		=> 'admin/manage_donations.html',
+			'page_path'			=> [
+					['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+					['title'=>$this->user->lang('donations').': '.$this->user->lang('donations_manage'), 'url'=>' '],
+			],
 			'display'			=> true
 		));
 	}

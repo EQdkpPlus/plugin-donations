@@ -194,6 +194,10 @@ class donationsAdminSettings extends page_generic {
 				'page_title'	=> $this->user->lang('donations').' '.$this->user->lang('settings'),
 				'template_path'	=> $this->pm->get_data('donations', 'template_path'),
 				'template_file'	=> 'admin/settings.html',
+				'page_path'			=> [
+						['title'=>$this->user->lang('menu_admin_panel'), 'url'=>$this->root_path.'admin/'.$this->SID],
+						['title'=>$this->user->lang('donations').': '.$this->user->lang('fp_manage_feeds'), 'url'=>' '],
+				],
 				'display'		=> true
 		));
 	}
