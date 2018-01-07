@@ -1,5 +1,14 @@
 <!-- IF S_DONATE_REDIRECT -->
 
+<!-- IF S_IS_PAYPALME -->
+<form method="get" action="{PAYPALME_URL}" id="paypal_redirect">
+	<a href="javascript:this.form.submit()"><i class="fa fa-lg fa-spin fa-spinner"></i> Redirecting to Paypal...</a>
+</form>
+<script>
+document.getElementById('paypal_redirect').submit();
+</script>
+
+<!-- ELSE -->
 <form method="post" action="{PAYPAL_URL}" id="paypal_redirect">
 	<input type="hidden" name="amount" value="{AMOUNT}" />
 	<input type="hidden" name="business" value="{TARGET_ADDRESS}" />
@@ -20,7 +29,7 @@
 <script>
 document.getElementById('paypal_redirect').submit();
 </script>
-
+<!-- ENDIF -->
 
 <!-- ELSE -->
 <style>

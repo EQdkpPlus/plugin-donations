@@ -92,15 +92,17 @@ class donate_pageobject extends pageobject
 
   	
   	$this->tpl->assign_vars(array(
-  			'S_DONATE_REDIRECT' 	=> true,
-  			'S_DONATE_BASIC_URL'	=> $this->env->buildlink().$this->routing->build('Donate', '', '', true, true),
-  			'AMOUNT' 		=> str_replace(',', '.', $fltValue),
+  			'S_DONATE_REDIRECT' => true,
+  			'S_DONATE_BASIC_URL'=> $this->env->buildlink().$this->routing->build('Donate', '', '', true, true),
+  			'AMOUNT' 			=> str_replace(',', '.', round($fltValue,2)),
   			'TARGET_ADDRESS' 	=> $this->config->get('paypal_email', 'donations'),
-  			'CURRENCY' 		=> $this->config->get('paypal_currency', 'donations'),
+  			'CURRENCY' 			=> $this->config->get('paypal_currency', 'donations'),
   			'NOTIFY_URL' 		=> $this->env->buildlink().'plugins/donations/paypal_callback.php',
   			'DONATE_TOKEN' 		=> $intID.':'.$strToken,
-  			'DONATE_ID'		=> $intID,
+  			'DONATE_ID'			=> $intID,
 			'DONATION_ITEM' 	=> $strPayPalItemname,
+  			'S_IS_PAYPALME'		=> (stripos($this->config->get('paypal_email', 'donations'), 'paypal.me') !== false) ? true : false,
+  			'PAYPALME_URL'		=> (stripos($this->config->get('paypal_email', 'donations'), 'http') !== false) ? $this->config->get('paypal_email', 'donations').'/'.str_replace(',', '.', $fltValue).strtolower($this->config->get('paypal_currency', 'donations')) : 'https://'.$this->config->get('paypal_email', 'donations').'/'.str_replace(',', '.', round($fltValue,2)).strtolower($this->config->get('paypal_currency', 'donations')),
   			'PAYPAL_URL'		=> (defined('DEBUG') > 3 || defined('DEBUG_PAYPAL')) ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr',
   	));
   	

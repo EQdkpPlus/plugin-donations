@@ -53,6 +53,7 @@ $lang = array(
     'donations_f_goal_display_type_covered' => 'Covered months',
     'donations_fs_paypal'			=> 'PayPal',
     'donations_f_paypal_email'		=> 'Recipients address',
+	'donations_f_help_paypal_email' => 'Insert your PayPal Email-address. Also, you can enter your PayPal.me address, e.g. paypal.me/EQdkpPlus. Donations using PayPal.me must be activated manually.',
     'donations_f_paypal_currency'		=> 'Currency',
     'donations_fs_texts'			=> 'Information texts',
     'donations_f_donation'			=> 'Description on the donation page',

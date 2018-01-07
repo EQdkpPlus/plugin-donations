@@ -53,6 +53,7 @@ $lang = array(
     'donations_f_goal_display_type_covered' => 'Noch abgedeckte Monate',
     'donations_fs_paypal'			=> 'PayPal',
     'donations_f_paypal_email'		=> 'Ziel-Emailadresse',
+	'donations_f_help_paypal_email' => 'Trage deine PayPal-Email-Adresse ein. Alternativ kannst du auch eine PayPal.me Adresse angeben, z.B. paypal.me/EQdkpPlus. Zahlungen über PayPal.me müssen aber manuell freigeschaltet werden.',
     'donations_f_paypal_currency'		=> 'Währung',
     'donations_fs_texts'			=> 'Informationstexte',
     'donations_f_donation'			=> 'Beschreibung auf der Spendenseite',
