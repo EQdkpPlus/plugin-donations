@@ -32,6 +32,8 @@ $lang = array(
     'donations_long_desc'         	=> 'Eine Spendenverwaltung für deine Gilde, welche Zahlungen über PayPal akzeptiert',
 
     'donations_plugin_not_installed'	=> 'Das Spenden-Plugin ist nicht installiert.',
+	'donations_donate'				=> 'Spenden',
+	'donations_donationslist'		=> 'Spendenliste einsehen',
 
     'donations_fs_general'        	=> 'Allgemeines',
     'donations_f_min_value' 		=> 'Mindestbetrag einer Spende',

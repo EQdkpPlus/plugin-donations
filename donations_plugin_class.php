@@ -41,7 +41,7 @@ class donations extends plugin_generic
     return array_merge(parent::$shortcuts, $shortcuts);
   }
 
-  public $version    = '1.0.2';
+  public $version    = '1.0.3';
   public $build      = '';
   public $copyright  = 'GodMod';
   public $vstatus    = 'Stable';
@@ -85,7 +85,7 @@ class donations extends plugin_generic
     $this->add_permission('a', 'manage',	'N', $this->user->lang('manage'),	array(2,3));
     $this->add_permission('a', 'settings',	'N', $this->user->lang('settings'),	array(2,3));
     $this->add_permission('u', 'donate',	'N', $this->user->lang('donations_donate'),	array(1,2,3,4));
-    $this->add_permission('u', 'donationlist',	'N', $this->user->lang('manage'),	array(1,2,3,4));
+    $this->add_permission('u', 'donationlist',	'N', $this->user->lang('donations_donationslist'),	array(1,2,3,4));
     
     $this->add_hook('plugin_statistics', 'donations_plugin_statistics_hook', 'plugin_statistics');
     

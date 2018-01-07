@@ -32,6 +32,8 @@ $lang = array(
     'donations_long_desc'         	=> 'A donation management for your guild, which accepts payments via PayPal',
 
     'donations_plugin_not_installed'	=> 'The Donations plugin is not installed.',
+		'donations_donate'				=> 'Donate',
+		'donations_donationslist'		=> 'View Donationslist',
 
     'donations_fs_general'        	=> 'General',
     'donations_f_min_value' 		=> 'Minimum value for donations',
