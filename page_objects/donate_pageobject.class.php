@@ -89,7 +89,6 @@ class donate_pageobject extends pageobject
 		$fltGoalValue = round($this->config->get('goal_value', 'donations'), 2);
 		$strPayPalItemname .= ' ('.$fltGoalValue.' '.$this->config->get('paypal_currency', 'donations').' Goal)';
 	}
-
   	
   	$this->tpl->assign_vars(array(
   			'S_DONATE_REDIRECT' => true,
@@ -103,7 +102,7 @@ class donate_pageobject extends pageobject
 			'DONATION_ITEM' 	=> $strPayPalItemname,
   			'S_IS_PAYPALME'		=> (stripos($this->config->get('paypal_email', 'donations'), 'paypal.me') !== false) ? true : false,
   			'PAYPALME_URL'		=> (stripos($this->config->get('paypal_email', 'donations'), 'http') !== false) ? $this->config->get('paypal_email', 'donations').'/'.str_replace(',', '.', $fltValue).strtolower($this->config->get('paypal_currency', 'donations')) : 'https://'.$this->config->get('paypal_email', 'donations').'/'.str_replace(',', '.', round($fltValue,2)).strtolower($this->config->get('paypal_currency', 'donations')),
-  			'PAYPAL_URL'		=> (defined('DEBUG') > 3 || defined('DEBUG_PAYPAL')) ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr',
+  			'PAYPAL_URL'		=> ((defined('DEBUG') && DEBUG > 3) || defined('DEBUG_PAYPAL')) ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr',
   	));
   	
   	

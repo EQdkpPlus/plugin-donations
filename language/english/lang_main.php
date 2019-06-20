@@ -88,7 +88,8 @@ $lang = array(
 
     'donations_ntfy_new_donation'	=> '{PRIMARY} has donated \'{ADDITIONAL}\'',
     'donations_ntfy_new_donation_grouped' => 'There are {COUNT} new donations',
-    'user_sett_f_ntfy_donations_new_donation' => 'Donations: new donation',
+    'user_sett_f_ntfy_donations_new_donation' => 'New donation',
+	'user_sett_f_ntfy_donations' => 'Donations',
 
     //Portal
     'donations_donations'		=> 'Donations',
