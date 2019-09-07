@@ -101,6 +101,7 @@ $lang = array(
 	'donations_f_show_count'	=> 'Anzahl der letzten angezeigten Spenden',
 	'donations_f_text_latest'	=> 'Optionaler Beschreibungstext',
 	'latestdonations' 			=> 'Letzte Spenden',
+	'user_sett_fs_notifications_donations' => 'Spenden',
 );
 
 ?>
