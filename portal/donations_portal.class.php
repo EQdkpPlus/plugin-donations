@@ -278,7 +278,7 @@ $output .= '<br /><table width="95%" class="portal donationtable">
 					$fltTotalSum += $myval;
 				}
 				
-				$percent = ($fltTotalSum <= 0) ? 0 : (($fltTotalSum / $fltGoalValue)*100);
+				$percent = ($fltTotalSum <= 0 || !$fltGoalValue) ? 0 : (($fltTotalSum / $fltGoalValue)*100);
 				$percent = $displayPercent = round($percent,0);
 				if($percent > 100) $percent = 100;
 				
