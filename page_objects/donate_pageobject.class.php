@@ -89,6 +89,27 @@ class donate_pageobject extends pageobject
 		$fltGoalValue = round($this->config->get('goal_value', 'donations'), 2);
 		$strPayPalItemname .= ' ('.$fltGoalValue.' '.$this->config->get('paypal_currency', 'donations').' Goal)';
 	}
+	
+	//PayPal.me URL
+	$strPayPalEmail = $this->config->get('paypal_email', 'donations');
+	$strPayPalMeUrl = "";
+	if(stripos($strPayPalEmail, 'paypal.me') !== false){
+	    //Moneypools, do not support given a specified amount
+	    if(stripos($strPayPalEmail, 'pools') !== false){
+	        if(stripos($strPayPalEmail, 'http') !== false) {
+	            $strPayPalMeUrl = $strPayPalEmail.'/send';
+	        } else {
+	            $strPayPalMeUrl = 'https://'.$strPayPalEmail.'/send';
+	        }
+	    //Normal personal Paypal.me Account
+	    } else {
+	        if(stripos(stripos, 'http') !== false) {
+	           $strPayPalMeUrl = $strPayPalEmail.'/'.str_replace(',', '.', $fltValue).strtolower($this->config->get('paypal_currency', 'donations'));	            
+	        } else {
+	            $strPayPalMeUrl = 'https://'.$strPayPalEmail.'/'.str_replace(',', '.', round($fltValue,2)).strtolower($this->config->get('paypal_currency', 'donations'));
+	        }
+	    }
+	}
   	
   	$this->tpl->assign_vars(array(
   			'S_DONATE_REDIRECT' => true,
@@ -101,7 +122,7 @@ class donate_pageobject extends pageobject
   			'DONATE_ID'			=> $intID,
 			'DONATION_ITEM' 	=> $strPayPalItemname,
   			'S_IS_PAYPALME'		=> (stripos($this->config->get('paypal_email', 'donations'), 'paypal.me') !== false) ? true : false,
-  			'PAYPALME_URL'		=> (stripos($this->config->get('paypal_email', 'donations'), 'http') !== false) ? $this->config->get('paypal_email', 'donations').'/'.str_replace(',', '.', $fltValue).strtolower($this->config->get('paypal_currency', 'donations')) : 'https://'.$this->config->get('paypal_email', 'donations').'/'.str_replace(',', '.', round($fltValue,2)).strtolower($this->config->get('paypal_currency', 'donations')),
+  	         'PAYPALME_URL'		=> $strPayPalMeUrl,
   			'PAYPAL_URL'		=> ((defined('DEBUG') && DEBUG > 3) || defined('DEBUG_PAYPAL')) ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr',
   	));
   	
