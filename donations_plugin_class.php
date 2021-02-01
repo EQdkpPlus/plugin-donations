@@ -41,7 +41,7 @@ class donations extends plugin_generic
     return array_merge(parent::$shortcuts, $shortcuts);
   }
 
-  public $version    = '1.0.7';
+  public $version    = '1.0.8';
   public $build      = '';
   public $copyright  = 'GodMod';
   public $vstatus    = 'Stable';
